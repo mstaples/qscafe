@@ -9,13 +9,26 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $admin = false;
+
+    protected $notifications = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'phonenumber', 'password', 'notifications'
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'admin'
     ];
 
     /**
@@ -26,4 +39,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected function isAdmin() {
+        return $this->admin;
+    }
+
+    public function setPhonenumberAttribute($value) {
+        if ( empty($value) ) {
+            $this->attributes['phonenumber'] = NULL;
+        } else {
+            $this->attributes['phonenumber'] = $value;
+        }
+    }
+
+    public function notifications()
+    {
+        return $this->hasOne('App\Notification');
+    }
 }

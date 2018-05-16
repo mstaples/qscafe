@@ -9,6 +9,7 @@
         <script type="text/javascript" src="{{ asset('js/ie/html5shiv.js') }}"></script>
     <![endif]-->
 
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
     <!--[if lte IE 9]>
@@ -25,11 +26,11 @@
                 <div class="12u">
 
                     <!-- Logo -->
-                    <h1><a href="#" id="logo"><img src="{{ asset('images/QsCafe.png') }}" id="logo">'s Cafe</a></h1>
+                    <h1><a href="{{ route('home') }}" id="logo"><img src="{{ asset('images/QsCafe.png') }}" id="logo">'s Cafe</a></h1>
 
                     <!-- Nav -->
                     <nav id="nav">
-                        @include('layouts.nav')
+                        @include('segment.nav')
                     </nav>
 
                 </div>
@@ -65,6 +66,7 @@
                                         <li><a href="https://www.instagram.com/qscafesdenton" target="_blank">Instagram</a></li>
                                         <li><a href="https://www.facebook.com/qscafedenton" target="_blank">Facebook</a></li>
                                         <li><a href="https://twitter.com/qscafedenton" target="_blank">Twitter</a></li>
+                                        <li>qscafedenton@gmail.com</li>
                                     </ul>
                                 </div>
                                 <div class="3u 12u(mobile)">
@@ -82,8 +84,10 @@
                     <section>
                         <h2>About Q's Cafe</h2>
                         <p>
-                            Q's is not just a gay bar. We're a performance space, a café, a coffee shop, a study space, a spot to sober up, and yes, also a gay bar. We provide a community space for everyone, lgbtq or allies, all faiths, all ages, all backgrounds.<br/>
-                            qscafedenton@gmail.com
+                            Q's is not just a gay bar. We're a performance space, a café, a coffee shop, a study space, a spot to sober up, and yes, also a gay bar. We provide a community space for everyone, lgbtq or allies, all faiths, all ages, all backgrounds.
+                            @guest
+                            <a href="{{ route('register') }}">Sign up to receive notifications about shows and specials!</a>
+                            @endguest
                         </p>
                     </section>
 
@@ -93,20 +97,33 @@
     </div>
 
     <!-- Copyright -->
-    <div id="copyright">
-        &copy; Q's Cafe Denton. All rights reserved
-    </div>
+    @auth
+        <div id="copyright">
+            <a href="{{ route('logout') }}"
+               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                &copy; Q's Cafe Denton. All rights reserved
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </div>
+    @endauth
+    @guest
+        <div id="copyright">
+            <a href="{{ route('login') }}">&copy; Q's Cafe Denton. All rights reserved</a>
+        </div>
+    @endguest
 
 </div>
 
 <!-- Scripts -->
-<script src="../../../public/js/jquery.min.js"></script>
-<script src="../../../public/js/skel.min.js"></script>
-<script src="../../../public/js/skel-viewport.min.js"></script>
-<script src="../../../public/js/util.js"></script>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/skel.min.js') }}"></script>
+<script src="{{ asset('js/skel-viewport.min.js') }}"></script>
+<script src="{{ asset('js/util.js') }}"></script>
 <!--[if lte IE 8]>
-<script src="../../../public/js/ie/respond.min.js"></script><![endif]-->
-<script src="../../../public/js/main.js"></script>
+<script src="{{ asset('js/ie/respond.min.js') }}"></script><![endif]-->
+<script src="{{ asset('js/main.js') }}"></script>
 
 </body>
 </html>

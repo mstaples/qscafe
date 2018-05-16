@@ -1,30 +1,35 @@
-@extends('layouts.banner')
+@extends('layouts.base')
 
-@section('main')
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+@section('banner')
+<div class="container">
+    <div class="row">
+        <div class="6u 12u(mobile)">
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+            <!-- Banner Copy -->
+            <p>We're hosting some of the most exciting, fun, unique, and deliciously queer entertainment around.</p>
+            <a href="#" class="button-big">Shows & Events</a>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+        </div>
+        <div class="6u 12u(mobile)">
+
+            <!-- Banner Image -->
+            <a href="#" class="bordered-feature-image"><img src="{{ asset('images/banners/'.$banner) }}" alt="" /></a>
+
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('body')
+<div id="features-wrapper">
+    <div id="features">
+        <div class="container">
+            <div class="row">
+                @foreach ($features as $feature)
+                    @include('segment.feature', [ 'feature' => $feature])
+                @endforeach
             </div>
         </div>
+    </div>
+</div>
 @endsection
